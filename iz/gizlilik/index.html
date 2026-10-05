@@ -41,9 +41,9 @@
 <li>Sıralamada görünmek için bir takma ad seçersin. Takma adın ve sonucun (çözdüğün tahta sayısı, süren ve günlük sıralamada ipucu sayın) sıralamada herkese görünür. Takma adda gerçek adını kullanman gerekmez. Giriş yapmış oyuncuların uygulaması, bildirme ve engelleme için rastgele hesap kimliğini de alır; bu kimlik ekranda görünmez.</li>
 <li>Giriş yaptıysan bitirdiğin her günlük tahtanın sonucu (tarih, tahta, çizdiğin yol, süre, ipucu sayısı) sıralama için sunucumuza gönderilir. Serbest oyun, arşiv ve öbür ilerlemen cihazında kalır.</li>
 <li>Sıralamada bir oyuncuyu bildirirsen bildirim (hesabın, bildirdiğin oyuncu ve o anki takma adı, seçtiğin neden) incelenmek üzere sunucumuzda saklanır. Bildirimleri yalnız geliştirici görür; bildirilen oyuncuya kimin bildirdiği söylenmez.</li>
-<li>Bir oyuncuyu engellersen engel listen hesabına bağlı saklanır; böylece o oyuncu Hedef, Mikrop ve İz'de sana görünmez. Engeli Ayarlar → Hesap → Engellenen oyuncular'dan kaldırabilirsin.</li>
+<li>Bir oyuncuyu engellersen engel listen hesabına bağlı saklanır; böylece o oyuncu Hedef, Mikrop, İz, Ek ve Terazi'de sana görünmez. Engeli Ayarlar → Hesap → Engellenen oyuncular'dan kaldırabilirsin.</li>
 <li>Bu verileri yalnız sıralamayı yürütmek ve kötüye kullanıma karşı korumak için kullanırız. Satmayız, reklam için kullanmayız, başkalarıyla paylaşmayız.</li>
-<li>Veriler Avrupa Birliği'nde (Frankfurt) Supabase altyapısındaki sunucumuzda saklanır. Hedef ve Mikrop oyunlarımız aynı hesabı ve takma adı kullanır.</li>
+<li>Veriler Avrupa Birliği'nde (Frankfurt) Supabase altyapısındaki sunucumuzda saklanır. Hedef, Mikrop, Ek ve Terazi oyunlarımız aynı hesabı ve takma adı kullanır.</li>
 <li>Her internet isteğinde olduğu gibi sunucu, güvenlik için teknik kayıtlar (ör. IP adresi, tarayıcı/uygulama tanıtıcısı, giriş zamanları) tutar. Bunlar altyapı sağlayıcısının saklama süresince kalır; hesabını silersen giriş kayıtların en geç bir gün içinde silinir. Bunları seni tanımak ya da konumunu bulmak için kullanmayız.</li>
 </ul>
 
@@ -52,7 +52,7 @@
 <li>Günlük tahta sonuçların 12 hafta saklanır, sonra kendiliğinden silinir.</li>
 <li>Hesap kimliğin ve takma adın hesabını silene dek kalır. Engellerin, kaldırana ya da hesap silinene dek kalır.</li>
 <li>Bildirimler en çok 180 gün saklanır; bildiren ya da bildirilen hesap silinince hemen silinir.</li>
-<li>Ayarlar → Hesap → Hesabı sil ile hesabını ve ona bağlı bütün verileri (takma adın, Hedef, Mikrop ve İz'deki bütün sonuçların, engel listen ve seninle ilgili bildirimler) hemen ve kalıcı olarak silebilirsin. Apple ile girdiysen Apple'daki uygulama bağlantısı da kaldırılır. Silinen veriler, altyapı sağlayıcısının yedeklerinde yedek saklama süresi dolana dek kalabilir.</li>
+<li>Ayarlar → Hesap → Hesabı sil ile hesabını ve ona bağlı bütün verileri (takma adın, Hedef, Mikrop, İz, Ek ve Terazi'deki bütün sonuçların, engel listen ve seninle ilgili bildirimler) hemen ve kalıcı olarak silebilirsin. Apple ile girdiysen Apple'daki uygulama bağlantısı da kaldırılır. Silinen veriler, altyapı sağlayıcısının yedeklerinde yedek saklama süresi dolana dek kalabilir.</li>
 <li>Çıkış yapmak ya da hesabı silmek cihazındaki ilerlemene dokunmaz.</li>
 </ul>
 
@@ -92,9 +92,9 @@
 <li>To appear on the leaderboard you choose a nickname. Your nickname and your result (boards solved, your time and, on the daily ranking, your number of hints) are visible to everyone on the leaderboard. Your nickname doesn't need to be your real name. Signed-in players' apps also receive your random account ID so they can report or block; it is never shown on screen.</li>
 <li>When you are signed in, the result of each daily board you finish (date, board, the path you drew, time, number of hints) is sent to our server for the leaderboard. Free play, the archive and the rest of your progress stay on your device.</li>
 <li>If you report a player on the leaderboard, the report (your account, the player you reported and their nickname at the time, and the reason you chose) is stored on our server for review. Only the developer sees reports; the reported player isn't told who reported them.</li>
-<li>If you block a player, your block list is stored with your account, so that player stays hidden from you in Hedef, Mikrop and İz. You can unblock them in Settings → Account → Blocked players.</li>
+<li>If you block a player, your block list is stored with your account, so that player stays hidden from you in Hedef, Mikrop, İz, Ek and Terazi. You can unblock them in Settings → Account → Blocked players.</li>
 <li>We use this data only to run the leaderboard and protect it from abuse. We don't sell it, use it for advertising or share it with others.</li>
-<li>The data is stored on our server on Supabase infrastructure in the European Union (Frankfurt). Our games Hedef and Mikrop use the same account and nickname.</li>
+<li>The data is stored on our server on Supabase infrastructure in the European Union (Frankfurt). Our games Hedef, Mikrop, Ek and Terazi use the same account and nickname.</li>
 <li>As with any internet request, the server keeps technical records for security (such as IP address, browser/app identifier and sign-in times). They stay for the infrastructure provider's retention period; if you delete your account, your sign-in records are removed within one day. We don't use them to identify you or to find your location.</li>
 </ul>
 
@@ -103,7 +103,7 @@
 <li>Your daily board results are kept for 12 weeks and then deleted automatically.</li>
 <li>Your account ID and nickname stay until you delete your account. Your blocks stay until you remove them or an account is deleted.</li>
 <li>Reports are kept for at most 180 days and are deleted at once when the reporting or the reported account is deleted.</li>
-<li>In Settings → Account → Delete account you can immediately and permanently delete your account and all data linked to it (your nickname, all your results in Hedef, Mikrop and İz, your block list and reports concerning you). If you signed in with Apple, the app's link to your Apple ID is also revoked. Deleted data may remain in the infrastructure provider's backups until the backup retention period ends.</li>
+<li>In Settings → Account → Delete account you can immediately and permanently delete your account and all data linked to it (your nickname, all your results in Hedef, Mikrop, İz, Ek and Terazi, your block list and reports concerning you). If you signed in with Apple, the app's link to your Apple ID is also revoked. Deleted data may remain in the infrastructure provider's backups until the backup retention period ends.</li>
 <li>Signing out or deleting your account doesn't touch the progress on your device.</li>
 </ul>
 

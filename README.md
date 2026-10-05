@@ -1,6 +1,6 @@
 # Oyunlar sitesi
 
-Hedef, Mikrop ve İz oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
+Hedef, Mikrop, İz, Ek ve Terazi oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
 
 Site düz HTML ve tek bir CSS dosyasıdır. Derleme adımı, betik, yazı tipi ya da başka bir harici kaynak yoktur.
 
@@ -16,7 +16,7 @@ site.css                   ortak biçem (kağıt zemin, mürekkep lacivert; aç�
 araclar/denetle.py         denetim betiği
 ```
 
-`<oyun>`: `hedef`, `mikrop`, `iz`.
+`<oyun>`: `hedef`, `mikrop`, `iz`, `ek`, `terazi`.
 
 Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile `KOSULLAR_ADRESI` değerlerine bunlar girilir:
 
@@ -25,6 +25,8 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 | Hedef | https://srgulbay.github.io/oyunlar/hedef/gizlilik/ | https://srgulbay.github.io/oyunlar/hedef/destek/ | https://srgulbay.github.io/oyunlar/hedef/kosullar/ |
 | Mikrop | https://srgulbay.github.io/oyunlar/mikrop/gizlilik/ | https://srgulbay.github.io/oyunlar/mikrop/destek/ | https://srgulbay.github.io/oyunlar/mikrop/kosullar/ |
 | İz | https://srgulbay.github.io/oyunlar/iz/gizlilik/ | https://srgulbay.github.io/oyunlar/iz/destek/ | https://srgulbay.github.io/oyunlar/iz/kosullar/ |
+| Ek | https://srgulbay.github.io/oyunlar/ek/gizlilik/ | https://srgulbay.github.io/oyunlar/ek/destek/ | https://srgulbay.github.io/oyunlar/ek/kosullar/ |
+| Terazi | https://srgulbay.github.io/oyunlar/terazi/gizlilik/ | https://srgulbay.github.io/oyunlar/terazi/destek/ | https://srgulbay.github.io/oyunlar/terazi/kosullar/ |
 
 İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir.
 
@@ -38,9 +40,9 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 
 ## İçeriğin kaynağı
 
-Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`; Mikrop ve İz: `docs/magaza.md` §8; sözleşme: `docs/hesap-sozlesmesi.md`). Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
+Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef, Ek ve Terazi: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`, App Privacy için `docs/magaza.md` §5; Mikrop ve İz: `docs/magaza.md` §8; sözleşme: `docs/hesap-sozlesmesi.md`). Ek ve Terazi'nin koşulları öteki oyunların koşul sayfalarının yapısındadır. Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
 
-Üç oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir oyunun politikasında saklama süresi ya da silme kuralı değişirse öteki ikisi de denetlenir.
+Beş oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir oyunun politikasında saklama süresi ya da silme kuralı değişirse ötekiler de denetlenir.
 
 ## Yeni oyun ekleme
 

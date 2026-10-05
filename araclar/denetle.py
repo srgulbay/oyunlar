@@ -7,7 +7,7 @@ Denetimler:
 - tek h1, başlık düzeyleri atlanmaz;
 - bütün iç bağlantılar (dosya ve #çapa) çalışır;
 - harici kaynak yok (stylesheet, betik, görsel, yazı tipi, CSS url/@import);
-- yer tutucu kalmadı ("[" ile başlayan kalıp, açılı ayraçlı alan, taslak sözcükleri);
+- yer tutucu kalmadı ("[" ile başlayan kalıp, açılı ayraçlı ya da ‹…› alan, taslak sözcükleri);
 - her oyunun üç sayfası var, kök yalnız bu oyunları listeler.
 Sorun varsa çıkış kodu 1'dir.
 """
@@ -19,7 +19,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OYUNLAR = ["hedef", "mikrop", "iz"]
+OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi"]
 SAYFALAR = ["gizlilik", "destek", "kosullar"]
 BOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 DILLER = {"tr", "en"}
@@ -114,6 +114,7 @@ def hedef_dosya(kaynak, yol):
 YER_TUTUCU = [
     (re.compile(r"\["), "'[' kalıbı"),
     (re.compile(r"<[^<>]*(e-posta|email|satıcı|tarih|date|adı|name)[^<>]*>", re.I), "açılı ayraçlı alan"),
+    (re.compile(r"[‹›]"), "tek açılı tırnaklı alan (‹…›)"),
     (re.compile(r"\b(TODO|FIXME|lorem|taslak|yayın notu|placeholder)\b", re.I), "taslak sözcüğü"),
     (re.compile(r"Geliştirici adı|iletişim e-postası|yayın tarihi|Developer name|contact email|support email|publication date|destek e-postası", re.I), "doldurulmamış alan"),
 ]
@@ -231,7 +232,7 @@ def main():
         oyun_baglantilari = {d.split("/")[0] for _, _, d, _, _ in a.baglantilar if "/" in d and not urlsplit(d).scheme}
         if oyun_baglantilari != set(OYUNLAR):
             sorun(kok_sayfa, f"kökteki oyunlar {sorted(oyun_baglantilari)} (beklenen {OYUNLAR})")
-        for sozcuk in ("yakında", "Yakında", "coming soon", "Coming soon", "Terazi", "terazi/", '"ek/'):
+        for sozcuk in ("yakında", "Yakında", "coming soon", "Coming soon"):
             if sozcuk in icerik:
                 sorun(kok_sayfa, f"kökte olmaması gereken: {sozcuk!r}")
     else:
