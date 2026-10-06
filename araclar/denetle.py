@@ -13,7 +13,8 @@ Denetimler:
 - İngilizce adı ayrı olan oyunlarda (Mikrop dışında hepsi) İngilizce bölüm ve <title> o adı kullanır;
 - İngilizce bölümlerde (kök dahil) ve açıklamanın İngilizce cümlesinde bu oyunların Türkçe adı
   yalnız "called Hedef in Turkish" / "its Turkish name, Hedef" kalıbıyla geçer;
-- tıbbi içerikli oyunların destek ve koşullar sayfalarında "klinik karar" uyarısı iki dilde de var.
+- tıbbi içerikli oyunlarda (Koloni, Terim, Doz) iki dilde de: koşullarda ayrı bir "tıbbi sorumluluk reddi"
+  başlığı, destekte "eğitim amaçlıdır … için kullanılmaz" uyarısı.
 Sorun varsa çıkış kodu 1'dir.
 """
 
@@ -38,8 +39,12 @@ TURKCE_AD = {
 # İngilizce bölümde Türkçe ad yalnız bu kalıplarla, bilerek anılır ("called Hedef in Turkish").
 TURKCE_AD_IZINLI = re.compile(r"called \w+ in Turkish|its Turkish name, \w+")
 TURKCE_AD_KALIBI = re.compile(r"(?<!\w)(" + "|".join(TURKCE_AD.values()) + r")(?!\w)")
-TIBBI = ["koloni", "doz"]
-TIBBI_UYARI = {"tr": "klinik karar için kullanılmaz", "en": "must not be used for clinical decisions"}
+TIBBI = ["koloni", "terim", "doz"]
+# Koşullar: sorumluluk reddi ayrı başlıktır (Türkçe h2, İngilizce h3). Destek: aynı cümlede eğitim amacı ve kullanım sınırı.
+TIBBI_BASLIK = {"tr": re.compile(r"<h2>[^<]*sorumluluk reddi[^<]*</h2>"),
+                "en": re.compile(r'<h3 class="b2">[^<]*medical disclaimer[^<]*</h3>', re.I)}
+TIBBI_UYARI = {"tr": re.compile(r"eğitim amaçlı[^.<]*(kullanılmaz|kullanılamaz)", re.I),
+               "en": re.compile(r"\beducation[^.<]*\bnot for\b", re.I)}
 AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 AYLAR_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 TARIH_TR = re.compile(r"Son güncelleme: (\d{1,2}) (" + "|".join(AYLAR_TR) + r") (\d{4})")
@@ -270,9 +275,14 @@ def main():
             aciklama = re.search(r'<meta name="description" content="([^"]*)"', tr_bolum)
             if aciklama:
                 turkce_ad_tara(yol, aciklama[1].partition(". ")[2])
-            if oyun in TIBBI and sayfa != "gizlilik":
-                if TIBBI_UYARI["tr"] not in tr_bolum or TIBBI_UYARI["en"] not in en_bolum:
-                    sorun(yol, "tıbbi içerik uyarısı eksik (eğitim amaçlıdır, klinik karar için kullanılmaz)")
+            if oyun in TIBBI and sayfa == "kosullar":
+                for dil, bolum in (("tr", tr_bolum), ("en", en_bolum)):
+                    if not TIBBI_BASLIK[dil].search(bolum):
+                        sorun(yol, f"tıbbi sorumluluk reddi ayrı başlık değil ({dil})")
+            if oyun in TIBBI and sayfa == "destek":
+                for dil, bolum in (("tr", tr_bolum), ("en", en_bolum)):
+                    if not TIBBI_UYARI[dil].search(bolum):
+                        sorun(yol, f"tıbbi içerik uyarısı eksik ({dil}: eğitim amaçlıdır … için kullanılmaz)")
     kok_sayfa = os.path.join(KOK, "index.html")
     if kok_sayfa in ayrisanlar:
         a, icerik = ayrisanlar[kok_sayfa]
