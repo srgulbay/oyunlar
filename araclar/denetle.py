@@ -10,7 +10,9 @@ Denetimler:
 - yer tutucu kalmadı ("[" ile başlayan kalıp, açılı ayraçlı ya da ‹…› alan, taslak sözcükleri);
 - her oyunun üç sayfası var, kök yalnız bu oyunları listeler;
 - gizlilik ve koşullar sayfalarında Türkçe ve İngilizce "son güncelleme" tarihi var ve aynı gündür;
-- İngilizce adı ayrı olan oyunlarda İngilizce bölüm o adı kullanır;
+- İngilizce adı ayrı olan oyunlarda (Mikrop dışında hepsi) İngilizce bölüm ve <title> o adı kullanır;
+- İngilizce bölümlerde (kök dahil) ve açıklamanın İngilizce cümlesinde bu oyunların Türkçe adı
+  yalnız "called Hedef in Turkish" / "its Turkish name, Hedef" kalıbıyla geçer;
 - tıbbi içerikli oyunların destek ve koşullar sayfalarında "klinik karar" uyarısı iki dilde de var.
 Sorun varsa çıkış kodu 1'dir.
 """
@@ -24,8 +26,18 @@ from urllib.parse import urlsplit, unquote
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi", "tac", "kat", "soz", "koloni", "terim", "doz"]
 SAYFALAR = ["gizlilik", "destek", "kosullar"]
-# İngilizce bölümde kendi adıyla anılan oyunlar (öteki oyunlar İngilizcede de Türkçe adını kullanır).
-INGILIZCE_AD = {"tac": "Crown", "kat": "Fold", "soz": "Proverb", "koloni": "Colony", "terim": "Terms", "doz": "Dose"}
+# İngilizce bölümde kendi adıyla anılan oyunlar. Mikrop yalnız Türkçedir; İngilizcede de Mikrop adını kullanır.
+INGILIZCE_AD = {
+    "hedef": "Target", "iz": "Trace", "ek": "Suffix", "terazi": "Scales",
+    "tac": "Crown", "kat": "Fold", "soz": "Proverb", "koloni": "Colony", "terim": "Terms", "doz": "Dose",
+}
+TURKCE_AD = {
+    "hedef": "Hedef", "iz": "İz", "ek": "Ek", "terazi": "Terazi",
+    "tac": "Taç", "kat": "Kat", "soz": "Söz", "koloni": "Koloni", "terim": "Terim", "doz": "Doz",
+}
+# İngilizce bölümde Türkçe ad yalnız bu kalıplarla, bilerek anılır ("called Hedef in Turkish").
+TURKCE_AD_IZINLI = re.compile(r"called \w+ in Turkish|its Turkish name, \w+")
+TURKCE_AD_KALIBI = re.compile(r"(?<!\w)(" + "|".join(TURKCE_AD.values()) + r")(?!\w)")
 TIBBI = ["koloni", "doz"]
 TIBBI_UYARI = {"tr": "klinik karar için kullanılmaz", "en": "must not be used for clinical decisions"}
 AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
@@ -129,6 +141,14 @@ YER_TUTUCU = [
     (re.compile(r"\b(TODO|FIXME|lorem|taslak|yayın notu|placeholder)\b", re.I), "taslak sözcüğü"),
     (re.compile(r"Geliştirici adı|iletişim e-postası|yayın tarihi|Developer name|contact email|support email|publication date|destek e-postası", re.I), "doldurulmamış alan"),
 ]
+
+
+def turkce_ad_tara(yol, en_bolum):
+    """İngilizce bölümde İngilizce adı olan oyunların Türkçe adı izinli kalıp dışında geçmez."""
+    metin = TURKCE_AD_IZINLI.sub("", unquote(en_bolum))
+    bulunan = sorted(set(TURKCE_AD_KALIBI.findall(metin)))
+    if bulunan:
+        sorun(yol, f"İngilizce bölümde Türkçe ad: {', '.join(bulunan)}")
 
 
 def main():
@@ -240,8 +260,16 @@ def main():
                     sorun(yol, f"tarihler ayrı: {tr_tarih[0]!r} / {en_tarih[0]!r}")
             if "Sait Ramazan Gülbay" not in icerik:
                 sorun(yol, "geliştirici adı yok")
-            if oyun in INGILIZCE_AD and f'aria-label="{INGILIZCE_AD[oyun]} pages"' not in en_bolum:
-                sorun(yol, f"İngilizce bölüm {INGILIZCE_AD[oyun]!r} adını kullanmıyor")
+            if oyun in INGILIZCE_AD:
+                if f'aria-label="{INGILIZCE_AD[oyun]} pages"' not in en_bolum:
+                    sorun(yol, f"İngilizce bölüm {INGILIZCE_AD[oyun]!r} adını kullanmıyor")
+                baslik = re.search(r"<title>(.*?)</title>", tr_bolum)
+                if not baslik or f" · {INGILIZCE_AD[oyun]} · " not in baslik[1]:
+                    sorun(yol, f"<title> İngilizce adı ({INGILIZCE_AD[oyun]}) taşımıyor")
+            turkce_ad_tara(yol, en_bolum)
+            aciklama = re.search(r'<meta name="description" content="([^"]*)"', tr_bolum)
+            if aciklama:
+                turkce_ad_tara(yol, aciklama[1].partition(". ")[2])
             if oyun in TIBBI and sayfa != "gizlilik":
                 if TIBBI_UYARI["tr"] not in tr_bolum or TIBBI_UYARI["en"] not in en_bolum:
                     sorun(yol, "tıbbi içerik uyarısı eksik (eğitim amaçlıdır, klinik karar için kullanılmaz)")
@@ -254,6 +282,14 @@ def main():
         for sozcuk in ("yakında", "Yakında", "coming soon", "Coming soon"):
             if sozcuk in icerik:
                 sorun(kok_sayfa, f"kökte olmaması gereken: {sozcuk!r}")
+        _, ayrac, kok_en = icerik.partition('<section id="en"')
+        if ayrac:
+            turkce_ad_tara(kok_sayfa, kok_en)
+        else:
+            sorun(kok_sayfa, "İngilizce bölüm yok")
+        aciklama = re.search(r'<meta name="description" content="([^"]*)"', icerik)
+        if aciklama:
+            turkce_ad_tara(kok_sayfa, aciklama[1].partition(". ")[2])
     else:
         sorun(kok_sayfa, "kök sayfa yok")
     for zorunlu in (".nojekyll", "README.md", "site.css"):

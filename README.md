@@ -34,7 +34,23 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 | Terim | https://srgulbay.github.io/oyunlar/terim/gizlilik/ | https://srgulbay.github.io/oyunlar/terim/destek/ | https://srgulbay.github.io/oyunlar/terim/kosullar/ |
 | Doz | https://srgulbay.github.io/oyunlar/doz/gizlilik/ | https://srgulbay.github.io/oyunlar/doz/destek/ | https://srgulbay.github.io/oyunlar/doz/kosullar/ |
 
-İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir. İlk beş oyun İngilizcede de Türkçe adıyla anılır; Taç, Kat, Söz, Koloni, Terim ve Doz İngilizce bölümde kendi İngilizce adlarıyla anılır: Crown, Fold, Proverb, Colony, Terms, Dose (`araclar/denetle.py` → `INGILIZCE_AD`).
+İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir. Oyunlar İngilizce bölümde (sayfa başlığı ve açıklaması, kök sayfanın İngilizce listesi, ortak hesap listeleri dahil) İngilizce adlarıyla anılır; adresler ve klasörler Türkçe kalır:
+
+| Türkçe | İngilizce |
+|---|---|
+| Hedef | Target |
+| Mikrop | Mikrop (uygulama yalnız Türkçedir; İngilizce adı yoktur) |
+| İz | Trace |
+| Ek | Suffix |
+| Terazi | Scales |
+| Taç | Crown |
+| Kat | Fold |
+| Söz | Proverb |
+| Koloni | Colony |
+| Terim | Terms |
+| Doz | Dose |
+
+İngilizce bölümde Türkçe ad yalnız bilerek ve "called Hedef in Turkish" ya da "its Turkish name, Hedef" kalıbıyla geçer (Hedef, İz, Ek ve Terazi'nin sayfalarında, mağaza taslaklarındaki gibi). Türkçe bölüm her zaman Türkçe adları kullanır. `araclar/denetle.py` bunu `INGILIZCE_AD` ve `TURKCE_AD` ile denetler.
 
 ## Sayfa düzeni
 
@@ -43,11 +59,12 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 - Bütün bağlantılar göreli yazılır (`../destek/`, `../../site.css`). Site `/oyunlar/` alt yolunda yayımlandığı için `/` ile başlayan yol kullanılmaz.
 - Üst şeritte konum ("Oyunlar / Hedef") ve dil bağlantıları, altında oyunun üç sayfası arasında geçiş vardır. Geçerli sayfanın bağlantısı `class="secili"` ve `aria-current="page"` taşır.
 - Her sayfada "Son güncelleme: 6 Ekim 2026" / "Last updated: October 6, 2026" biçiminde bir satır vardır (destek sayfası hariç). Metin değişince tarih de değişir; iki dildeki tarih aynı gün olmalıdır.
+- Bahşiş (isteğe bağlı, tüketilebilir uygulama içi satın alma; Hedef'te "bağış") her oyunda üç sayfada anlatılır: gizlilikte "Destek (uygulama içi satın alma)" bölümü (ödemeyi Apple işler, ödeme bilgisi bize ulaşmaz, sunucuya bir şey gönderilmez, destekçi işareti yalnız cihazda), destekte "Destekle" sorusu (hiçbir özellik açmaz; iade Apple'dan, `reportaproblem.apple.com`), koşullarda bahşiş maddesi (satın alma, ödeme ve iade Apple'ın koşullarına tabidir).
 - Koloni ve Doz tıbbi içeriklidir: destek ve koşullar sayfalarında iki dilde "eğitim amaçlıdır, klinik karar için kullanılmaz" uyarısı bulunur (`TIBBI`).
 
 ## İçeriğin kaynağı
 
-Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef, Ek ve Terazi: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`, App Privacy için `docs/magaza.md` §5; Mikrop ve İz: `docs/magaza.md` §8; sözleşme: `docs/hesap-sozlesmesi.md`). Ek ve Terazi'nin koşulları öteki oyunların koşul sayfalarının yapısındadır. Taç, Kat, Söz, Koloni, Terim ve Doz sayfaları Terazi'nin yapısıyla, ortak hesap sözleşmesinden ve App Privacy beyanından (User ID, Gameplay Content, Other User Content; izleme yok; bahşiş Apple üzerinden) yazıldı; oyuna özgü ayrıntı (mağaza adı, nasıl oynanır, puanlama) bu sayfalarda henüz yoktur ve oyunların mağaza taslaklarıyla karşılaştırılmalıdır. Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
+Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef, Ek, Terazi ve Kat: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`, Ek ve Kat'ta `kullanim-kosullari.md`, App Privacy için `docs/magaza.md` §5; Mikrop: `docs/magaza.md` §8; İz: `docs/magaza/sayfa/*.html`; sözleşme: `docs/hesap-sozlesmesi.md`). Ek ve Terazi'nin koşulları öteki oyunların koşul sayfalarının yapısındadır. Kat'ın üç sayfası 6 Ekim 2026'da oyunun taslaklarıyla hizalandı (koşullar taslağın dokuz maddesiyle). Taç, Söz, Koloni, Terim ve Doz sayfaları Terazi'nin yapısıyla, ortak hesap sözleşmesinden ve App Privacy beyanından (User ID, Gameplay Content, Other User Content; izleme yok; bahşiş Apple üzerinden) yazıldı; oyuna özgü ayrıntı (mağaza adı, nasıl oynanır, puanlama) bu sayfalarda henüz yoktur ve oyunların mağaza taslaklarıyla karşılaştırılmalıdır. Taslaklar ortak hesabı oyun saymadan anlatır ("bütün oyunlarımız"); sitede ortak hesap cümleleri oyunları adıyla sayar (aşağıda "Yeni oyun ekleme", adım 4). Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
 
 On bir oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir oyunun politikasında saklama süresi ya da silme kuralı değişirse ötekiler de denetlenir.
 
@@ -59,8 +76,8 @@ On bir oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir
    - konum şeridindeki oyun adı ve iki gezinme listesinin `aria-label` değeri;
    - Türkçe ve İngilizce metnin tamamı (oyunun mağaza taslağından);
    - e-posta bağlantılarındaki `subject` (Türkçe harf varsa kodlanır: `İz` → `%C4%B0z`).
-3. Kökteki `index.html`'e oyunu iki yerde ekle: Türkçe listeye (`h2`) ve İngilizce listeye (`h3`, bağlantılar `#en` ile).
-4. Hesap ortaksa var olan oyunların politikalarındaki ortak hesap cümlelerini güncelle (ör. "Hedef, Mikrop ve İz aynı hesabı kullanır", silmede hangi oyunların sonuçlarının silindiği, engelin geçerli olduğu oyunlar).
+3. Kökteki `index.html`'e oyunu iki yerde ekle: Türkçe listeye (`h2`, Türkçe ad) ve İngilizce listeye (`h3`, İngilizce ad, bağlantılar `#en` ile). İngilizce adı `araclar/denetle.py` → `INGILIZCE_AD` ve `TURKCE_AD`'a da yaz.
+4. Hesap ortaksa var olan oyunların politikalarındaki ortak hesap cümlelerini güncelle (ör. "Hedef, Mikrop ve İz aynı hesabı kullanır", silmede hangi oyunların sonuçlarının silindiği, engelin geçerli olduğu oyunlar). Türkçe bölümde Türkçe adı, İngilizce bölümde İngilizce adı yaz.
 5. `araclar/denetle.py` içindeki `OYUNLAR` listesine oyunu ekle ve denetimi çalıştır.
 6. Yerelde aç ve iki temada bak (aşağıda).
 7. Oyunun adreslerini App Store Connect'e ve uygulamanın yapılandırmasına (`GIZLILIK_ADRESI`, `KOSULLAR_ADRESI`) gir.
@@ -72,4 +89,4 @@ python3 araclar/denetle.py
 python3 -m http.server 8000
 ```
 
-Betik etiketlerin kapandığını, iç bağlantıların ve `#tr`/`#en` çapalarının çalıştığını, harici kaynak ve yer tutucu kalmadığını, `lang` değerlerini ve başlık düzenini denetler; sorun varsa 1 ile çıkar. Önizleme: `http://localhost:8000/`. Koyu tema sistem ayarından gelir (`prefers-color-scheme`).
+Betik etiketlerin kapandığını, iç bağlantıların ve `#tr`/`#en` çapalarının çalıştığını, harici kaynak ve yer tutucu kalmadığını, `lang` değerlerini, başlık düzenini, tarihleri ve İngilizce bölümdeki oyun adlarını denetler; sorun varsa 1 ile çıkar. Önizleme: `http://localhost:8000/`. Koyu tema sistem ayarından gelir (`prefers-color-scheme`).
