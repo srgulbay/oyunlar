@@ -8,7 +8,10 @@ Denetimler:
 - bütün iç bağlantılar (dosya ve #çapa) çalışır;
 - harici kaynak yok (stylesheet, betik, görsel, yazı tipi, CSS url/@import);
 - yer tutucu kalmadı ("[" ile başlayan kalıp, açılı ayraçlı ya da ‹…› alan, taslak sözcükleri);
-- her oyunun üç sayfası var, kök yalnız bu oyunları listeler.
+- her oyunun üç sayfası var, kök yalnız bu oyunları listeler;
+- gizlilik ve koşullar sayfalarında Türkçe ve İngilizce "son güncelleme" tarihi var ve aynı gündür;
+- İngilizce adı ayrı olan oyunlarda İngilizce bölüm o adı kullanır;
+- tıbbi içerikli oyunların destek ve koşullar sayfalarında "klinik karar" uyarısı iki dilde de var.
 Sorun varsa çıkış kodu 1'dir.
 """
 
@@ -19,8 +22,16 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi"]
+OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi", "tac", "kat", "soz", "koloni", "terim", "doz"]
 SAYFALAR = ["gizlilik", "destek", "kosullar"]
+# İngilizce bölümde kendi adıyla anılan oyunlar (öteki oyunlar İngilizcede de Türkçe adını kullanır).
+INGILIZCE_AD = {"tac": "Crown", "kat": "Fold", "soz": "Proverb", "koloni": "Colony", "terim": "Terms", "doz": "Dose"}
+TIBBI = ["koloni", "doz"]
+TIBBI_UYARI = {"tr": "klinik karar için kullanılmaz", "en": "must not be used for clinical decisions"}
+AYLAR_TR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+AYLAR_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+TARIH_TR = re.compile(r"Son güncelleme: (\d{1,2}) (" + "|".join(AYLAR_TR) + r") (\d{4})")
+TARIH_EN = re.compile(r"Last updated: (" + "|".join(AYLAR_EN) + r") (\d{1,2}), (\d{4})")
 BOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 DILLER = {"tr", "en"}
 E_POSTA = "srgulbay@gmail.com"
@@ -220,12 +231,20 @@ def main():
                 sorun(yol, "sayfa yok")
                 continue
             icerik = ayrisanlar[yol][1]
+            tr_bolum, _, en_bolum = icerik.partition('<article id="en"')
             if sayfa != "destek":
-                for tarih in ("5 Ekim 2026", "October 5, 2026"):
-                    if tarih not in icerik:
-                        sorun(yol, f"tarih yok: {tarih}")
+                tr_tarih, en_tarih = TARIH_TR.search(tr_bolum), TARIH_EN.search(en_bolum)
+                if not tr_tarih or not en_tarih:
+                    sorun(yol, "son güncelleme tarihi yok (Türkçe ya da İngilizce)")
+                elif (int(tr_tarih[1]), AYLAR_TR.index(tr_tarih[2]), tr_tarih[3]) != (int(en_tarih[2]), AYLAR_EN.index(en_tarih[1]), en_tarih[3]):
+                    sorun(yol, f"tarihler ayrı: {tr_tarih[0]!r} / {en_tarih[0]!r}")
             if "Sait Ramazan Gülbay" not in icerik:
                 sorun(yol, "geliştirici adı yok")
+            if oyun in INGILIZCE_AD and f'aria-label="{INGILIZCE_AD[oyun]} pages"' not in en_bolum:
+                sorun(yol, f"İngilizce bölüm {INGILIZCE_AD[oyun]!r} adını kullanmıyor")
+            if oyun in TIBBI and sayfa != "gizlilik":
+                if TIBBI_UYARI["tr"] not in tr_bolum or TIBBI_UYARI["en"] not in en_bolum:
+                    sorun(yol, "tıbbi içerik uyarısı eksik (eğitim amaçlıdır, klinik karar için kullanılmaz)")
     kok_sayfa = os.path.join(KOK, "index.html")
     if kok_sayfa in ayrisanlar:
         a, icerik = ayrisanlar[kok_sayfa]

@@ -1,6 +1,6 @@
 # Oyunlar sitesi
 
-Hedef, Mikrop, İz, Ek ve Terazi oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
+Hedef, Mikrop, İz, Ek, Terazi, Taç, Kat, Söz, Koloni, Terim ve Doz oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
 
 Site düz HTML ve tek bir CSS dosyasıdır. Derleme adımı, betik, yazı tipi ya da başka bir harici kaynak yoktur.
 
@@ -16,7 +16,7 @@ site.css                   ortak biçem (kağıt zemin, mürekkep lacivert; aç�
 araclar/denetle.py         denetim betiği
 ```
 
-`<oyun>`: `hedef`, `mikrop`, `iz`, `ek`, `terazi`.
+`<oyun>`: `hedef`, `mikrop`, `iz`, `ek`, `terazi`, `tac`, `kat`, `soz`, `koloni`, `terim`, `doz`.
 
 Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile `KOSULLAR_ADRESI` değerlerine bunlar girilir:
 
@@ -27,8 +27,14 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 | İz | https://srgulbay.github.io/oyunlar/iz/gizlilik/ | https://srgulbay.github.io/oyunlar/iz/destek/ | https://srgulbay.github.io/oyunlar/iz/kosullar/ |
 | Ek | https://srgulbay.github.io/oyunlar/ek/gizlilik/ | https://srgulbay.github.io/oyunlar/ek/destek/ | https://srgulbay.github.io/oyunlar/ek/kosullar/ |
 | Terazi | https://srgulbay.github.io/oyunlar/terazi/gizlilik/ | https://srgulbay.github.io/oyunlar/terazi/destek/ | https://srgulbay.github.io/oyunlar/terazi/kosullar/ |
+| Taç | https://srgulbay.github.io/oyunlar/tac/gizlilik/ | https://srgulbay.github.io/oyunlar/tac/destek/ | https://srgulbay.github.io/oyunlar/tac/kosullar/ |
+| Kat | https://srgulbay.github.io/oyunlar/kat/gizlilik/ | https://srgulbay.github.io/oyunlar/kat/destek/ | https://srgulbay.github.io/oyunlar/kat/kosullar/ |
+| Söz | https://srgulbay.github.io/oyunlar/soz/gizlilik/ | https://srgulbay.github.io/oyunlar/soz/destek/ | https://srgulbay.github.io/oyunlar/soz/kosullar/ |
+| Koloni | https://srgulbay.github.io/oyunlar/koloni/gizlilik/ | https://srgulbay.github.io/oyunlar/koloni/destek/ | https://srgulbay.github.io/oyunlar/koloni/kosullar/ |
+| Terim | https://srgulbay.github.io/oyunlar/terim/gizlilik/ | https://srgulbay.github.io/oyunlar/terim/destek/ | https://srgulbay.github.io/oyunlar/terim/kosullar/ |
+| Doz | https://srgulbay.github.io/oyunlar/doz/gizlilik/ | https://srgulbay.github.io/oyunlar/doz/destek/ | https://srgulbay.github.io/oyunlar/doz/kosullar/ |
 
-İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir.
+İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir. İlk beş oyun İngilizcede de Türkçe adıyla anılır; Taç, Kat, Söz, Koloni, Terim ve Doz İngilizce bölümde kendi İngilizce adlarıyla anılır: Crown, Fold, Proverb, Colony, Terms, Dose (`araclar/denetle.py` → `INGILIZCE_AD`).
 
 ## Sayfa düzeni
 
@@ -36,13 +42,14 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 - Sayfada tek `h1` vardır: Türkçe başlık. Türkçe bölümler `h2`, sık sorulan sorular `h3`'tür. İngilizce bölümde her düzey bir alttadır (`h2`, `h3`, `h4`); görünüm `b1`, `b2`, `b3` sınıflarıyla eşlenir.
 - Bütün bağlantılar göreli yazılır (`../destek/`, `../../site.css`). Site `/oyunlar/` alt yolunda yayımlandığı için `/` ile başlayan yol kullanılmaz.
 - Üst şeritte konum ("Oyunlar / Hedef") ve dil bağlantıları, altında oyunun üç sayfası arasında geçiş vardır. Geçerli sayfanın bağlantısı `class="secili"` ve `aria-current="page"` taşır.
-- Her sayfada "Son güncelleme: 5 Ekim 2026" / "Last updated: October 5, 2026" satırı vardır (destek sayfası hariç). Metin değişince tarih de değişir.
+- Her sayfada "Son güncelleme: 6 Ekim 2026" / "Last updated: October 6, 2026" biçiminde bir satır vardır (destek sayfası hariç). Metin değişince tarih de değişir; iki dildeki tarih aynı gün olmalıdır.
+- Koloni ve Doz tıbbi içeriklidir: destek ve koşullar sayfalarında iki dilde "eğitim amaçlıdır, klinik karar için kullanılmaz" uyarısı bulunur (`TIBBI`).
 
 ## İçeriğin kaynağı
 
-Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef, Ek ve Terazi: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`, App Privacy için `docs/magaza.md` §5; Mikrop ve İz: `docs/magaza.md` §8; sözleşme: `docs/hesap-sozlesmesi.md`). Ek ve Terazi'nin koşulları öteki oyunların koşul sayfalarının yapısındadır. Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
+Metinler oyunların mağaza taslaklarından ve ortak hesap sözleşmesinden gelir (Hedef, Ek ve Terazi: `docs/magaza/gizlilik-politikasi.md`, `destek-sayfasi.md`, App Privacy için `docs/magaza.md` §5; Mikrop ve İz: `docs/magaza.md` §8; sözleşme: `docs/hesap-sozlesmesi.md`). Ek ve Terazi'nin koşulları öteki oyunların koşul sayfalarının yapısındadır. Taç, Kat, Söz, Koloni, Terim ve Doz sayfaları Terazi'nin yapısıyla, ortak hesap sözleşmesinden ve App Privacy beyanından (User ID, Gameplay Content, Other User Content; izleme yok; bahşiş Apple üzerinden) yazıldı; oyuna özgü ayrıntı (mağaza adı, nasıl oynanır, puanlama) bu sayfalarda henüz yoktur ve oyunların mağaza taslaklarıyla karşılaştırılmalıdır. Gizlilik metni sunucudaki gerçek veri akışıyla birebir olmalıdır. Uygulama ya da sunucu değişirse önce oyunun deposundaki taslak, sonra bu sayfa güncellenir.
 
-Beş oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir oyunun politikasında saklama süresi ya da silme kuralı değişirse ötekiler de denetlenir.
+On bir oyun aynı Supabase projesini (Frankfurt) ve aynı hesabı kullanır. Bir oyunun politikasında saklama süresi ya da silme kuralı değişirse ötekiler de denetlenir.
 
 ## Yeni oyun ekleme
 
