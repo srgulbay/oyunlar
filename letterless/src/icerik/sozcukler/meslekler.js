@@ -1,0 +1,142 @@
+// Meslekler destesi (TR, ücretli). Biçim: docs/icerik-bicimi.md §3. Seçki C2'nindir (tools/icerik/KAYNAKLAR.md).
+// Mesleklerin çoğu "kök + -CI"dır; kök anlatımı ele verir ("balık tutan"), bu yüzden en az 4 harflik kök `kokler`e
+// yazılır, kökü kısa olanlarda `harf` önerisi kökün harflerinden seçilir ("dişçi" → D, İ, Ş). Temel destedeki
+// "öğretmen" ve "doktor" burada yinelenmez. Asker, dinî ve siyasi meslek yoktur; silah taşıyan meslekten yalnız
+// çocukların tanıdığı polis ve trafik polisi vardır. Aynı işin ikinci adı ayrı kayıt değil, `esler`dir ("şef" →
+// aşçı, "muhabir" → gazeteci, "spiker" → sunucu). Anlam ayıran şapka `gosterim`dedir ("hâkim"). İngilizcede
+// yerleşik karşılığı olmayan meslekte ("muhtar") `ceviri` yazılmaz.
+export const SOZCUKLER = Object.freeze([
+  { soz: 'aşçı', ceviri: 'cook', zorluk: 1, harf: ['A', 'Ş'], esler: ['şef'] },
+  ['pilot', 'pilot', 1],
+  { soz: 'itfaiyeci', ceviri: 'firefighter', zorluk: 1, kokler: ['itfaiye'] },
+  ['astronot', 'astronaut', 1],
+  { soz: 'dişçi', ceviri: 'dentist', zorluk: 1, harf: ['D', 'İ', 'Ş'], esler: ['diş hekimi'] },
+  ['veteriner', 'vet', 1], ['mimar', 'architect', 2], ['avukat', 'lawyer', 2],
+  { soz: 'hakim', ceviri: 'judge', zorluk: 2, gosterim: 'hâkim' },
+  { soz: 'bahçıvan', ceviri: 'gardener', zorluk: 2, kokler: ['bahçe'] },
+  ['terzi', 'tailor', 2], ['berber', 'barber', 1],
+  { soz: 'fırıncı', ceviri: 'baker', zorluk: 1, kokler: ['fırın'] },
+  ['kasap', 'butcher', 1],
+  { soz: 'balıkçı', ceviri: 'fisherman', zorluk: 1, kokler: ['balık'] },
+  { soz: 'çiftçi', ceviri: 'farmer', zorluk: 1, kokler: ['çift'] },
+  ['marangoz', 'carpenter', 2],
+  { soz: 'elektrikçi', ceviri: 'electrician', zorluk: 2, kokler: ['elektrik'] },
+  ['garson', 'waiter', 1], ['kaptan', 'captain', 1],
+  ['hemşire', 'nurse', 1],
+  { soz: 'eczacı', ceviri: 'pharmacist', zorluk: 2, kokler: ['ecza'] },
+  { soz: 'gazeteci', ceviri: 'journalist', zorluk: 2, kokler: ['gazete'], esler: ['muhabir'] },
+  { soz: 'fotoğrafçı', ceviri: 'photographer', zorluk: 1, kokler: ['fotoğraf'] },
+  { soz: 'ressam', ceviri: 'painter', zorluk: 2, kokler: ['resim'] },
+  { soz: 'heykeltıraş', ceviri: 'sculptor', zorluk: 3, kokler: ['heykel'] },
+  ['şoför', 'driver', 1],
+  { soz: 'postacı', ceviri: 'mail carrier', zorluk: 1, kokler: ['posta'] },
+  ['polis', 'police officer', 1],
+  { soz: 'dalgıç', ceviri: 'diver', zorluk: 2, harf: ['D', 'A', 'L'], kokler: ['dal-'] },
+  { soz: 'balerin', ceviri: 'ballerina', zorluk: 1, kokler: ['bale'] },
+
+  // Sağlık ve bilim
+  ['çocuk doktoru', 'pediatrician', 1], ['mühendis', 'engineer', 1], ['profesör', 'professor', 1], ['dedektif', 'detective', 1], ['cerrah', 'surgeon', 2],
+  ['psikolog', 'psychologist', 2],
+  { soz: 'bilim insanı', ceviri: 'scientist', zorluk: 2, serbest: ['bile'] }, ['arkeolog', 'archaeologist', 2], ['biyolog', 'biologist', 2],
+  { soz: 'tarihçi', ceviri: 'historian', zorluk: 2, kokler: ['tarih'] },
+  ['diyetisyen', 'dietitian', 3], ['fizyoterapist', 'physiotherapist', 3], ['paramedik', 'paramedic', 3], ['laborant', 'lab technician', 3], ['astronom', 'astronomer', 3],
+  ['kimyager', 'chemist', 3],
+  { soz: 'fizikçi', ceviri: 'physicist', zorluk: 3, kokler: ['fizik'] },
+  { soz: 'matematikçi', ceviri: 'mathematician', zorluk: 3, kokler: ['matematik'] },
+  ['meteorolog', 'meteorologist', 3],
+
+  // İş yeri ve büro
+  ['işçi', 'worker', 1], ['patron', 'boss', 1], ['kasiyer', 'cashier', 1], ['müdür', 'manager', 2], ['sekreter', 'secretary', 2],
+  { soz: 'bankacı', ceviri: 'banker', zorluk: 2, kokler: ['banka'] },
+  ['memur', 'civil servant', 2], ['resepsiyonist', 'receptionist', 2], ['teknisyen', 'technician', 2],
+  { soz: 'yazılımcı', ceviri: 'programmer', zorluk: 2, kokler: ['yazılım'] },
+  { soz: 'emlakçı', ceviri: 'real estate agent', zorluk: 2, kokler: ['emlak'] },
+  { soz: 'muhasebeci', ceviri: 'accountant', zorluk: 3, kokler: ['muhasebe'] },
+
+  // Dükkân ve çarşı
+  { soz: 'çiçekçi', ceviri: 'florist', zorluk: 1, kokler: ['çiçek'] },
+  { soz: 'kitapçı', ceviri: 'bookseller', zorluk: 1, kokler: ['kitap'] },
+  { soz: 'dondurmacı', ceviri: 'ice cream seller', zorluk: 1, kokler: ['dondurma'] },
+  ['bakkal', 'grocer', 1], ['manav', 'greengrocer', 1],
+  { soz: 'simitçi', ceviri: 'bagel seller', zorluk: 1, kokler: ['simit'] },
+  { soz: 'oyuncakçı', ceviri: 'toy seller', zorluk: 1, kokler: ['oyuncak'] },
+  { soz: 'pastacı', ceviri: 'pastry chef', zorluk: 1, kokler: ['pasta'] },
+  { soz: 'kebapçı', ceviri: 'kebab maker', zorluk: 1, kokler: ['kebap'] },
+  { soz: 'ayakkabıcı', ceviri: 'shoemaker', zorluk: 1, kokler: ['ayakkabı'] },
+  ['tezgahtar', 'shop assistant', 2],
+  { soz: 'pazarcı', ceviri: 'vendor', zorluk: 2, kokler: ['pazar'] },
+  { soz: 'kuyumcu', ceviri: 'jeweler', zorluk: 2, kokler: ['kuyum'] },
+  { soz: 'saatçi', ceviri: 'watchmaker', zorluk: 2, kokler: ['saat'] },
+  { soz: 'gözlükçü', ceviri: 'optician', zorluk: 2, kokler: ['gözlük'] },
+  { soz: 'çaycı', ceviri: 'tea server', zorluk: 2, harf: ['Ç', 'A', 'Y'] },
+
+  // Lokanta
+  ['komi', 'busboy', 3],
+  { soz: 'bulaşıkçı', ceviri: 'dishwasher', zorluk: 3, kokler: ['bulaşık'] },
+
+  // Yol ve deniz
+  { soz: 'taksici', ceviri: 'taxi driver', zorluk: 1, kokler: ['taksi'] },
+  { soz: 'denizci', ceviri: 'sailor', zorluk: 1, kokler: ['deniz'] },
+  ['kurye', 'courier', 2], ['kabin memuru', 'flight attendant', 2],
+  { soz: 'kargocu', ceviri: 'delivery driver', zorluk: 2, kokler: ['kargo'] },
+  ['makinist', 'train driver', 2],
+
+  // Usta işleri
+  ['kuaför', 'hairdresser', 1],
+  { soz: 'tamirci', ceviri: 'mechanic', zorluk: 1, kokler: ['tamir'] },
+  { soz: 'boyacı', ceviri: 'house painter', zorluk: 1, kokler: ['boya'] },
+  { soz: 'duvarcı', ceviri: 'bricklayer', zorluk: 2, kokler: ['duvar'] },
+  ['inşaat işçisi', 'construction worker', 2], ['çilingir', 'locksmith', 2],
+  { soz: 'demirci', ceviri: 'blacksmith', zorluk: 2, kokler: ['demir'] },
+  { soz: 'tesisatçı', ceviri: 'plumber', zorluk: 3, kokler: ['tesisat'] },
+  { soz: 'camcı', ceviri: 'glazier', zorluk: 3, harf: ['C', 'A', 'M'] },
+  { soz: 'kaynakçı', ceviri: 'welder', zorluk: 3, kokler: ['kaynak'] },
+  { soz: 'çömlekçi', ceviri: 'potter', zorluk: 3, kokler: ['çömlek'] },
+  { soz: 'kuru temizlemeci', ceviri: 'dry cleaner', zorluk: 2, kokler: ['temizle', 'temiz'] },
+  { soz: 'madenci', ceviri: 'miner', zorluk: 2, kokler: ['maden'] },
+  { soz: 'mobilyacı', ceviri: 'furniture maker', zorluk: 2, kokler: ['mobilya'] },
+
+  // Sanat, sahne ve medya
+  ['müzisyen', 'musician', 1],
+  { soz: 'şarkıcı', ceviri: 'singer', zorluk: 1, kokler: ['şarkı'] },
+  { soz: 'dansçı', ceviri: 'dancer', zorluk: 1, kokler: ['dans'] },
+  { soz: 'oyuncu', ceviri: 'actor', zorluk: 1, kokler: ['oyun', 'oyna-'] },
+  ['yazar', 'writer', 1],
+  { soz: 'sunucu', ceviri: 'host', zorluk: 1, esler: ['spiker'] },
+  ['akrobat', 'acrobat', 1], ['yönetmen', 'director', 2],
+  { soz: 'şair', ceviri: 'poet', zorluk: 2, kokler: ['şiir'] },
+  ['cambaz', 'tightrope walker', 2], ['orkestra şefi', 'conductor', 2],
+  { soz: 'davulcu', ceviri: 'drummer', zorluk: 2, kokler: ['davul'] },
+  { soz: 'gitarist', ceviri: 'guitarist', zorluk: 2, kokler: ['gitar'] },
+  { soz: 'piyanist', ceviri: 'pianist', zorluk: 2, kokler: ['piyano', 'piyan'] },
+  { soz: 'kemancı', ceviri: 'violinist', zorluk: 2, kokler: ['keman'] },
+  ['manken', 'model', 2],
+  { soz: 'modacı', ceviri: 'fashion designer', zorluk: 2, kokler: ['moda'], esler: ['moda tasarımcısı'] },
+  { soz: 'dekoratör', ceviri: 'interior designer', zorluk: 2, kokler: ['dekor'] },
+  ['editör', 'editor', 2], ['kameraman', 'cameraman', 2],
+  ['senarist', 'screenwriter', 3],
+  { soz: 'hattat', ceviri: 'calligrapher', zorluk: 3, harf: ['H', 'A', 'T'] },
+  { soz: 'karikatürist', ceviri: 'cartoonist', zorluk: 3, kokler: ['karikatür'] },
+  ['jonglör', 'juggler', 3], ['vantrilok', 'ventriloquist', 3],
+  { soz: 'pandomimci', ceviri: 'mime', zorluk: 3, kokler: ['pandomim'] },
+  ['grafiker', 'graphic designer', 3], ['hokkabaz', 'conjurer', 3], ['dublör', 'stunt double', 3],
+
+  // Kamu ve güvenlik
+  ['cankurtaran', 'lifeguard', 1],
+  { soz: 'çöpçü', ceviri: 'garbage collector', zorluk: 1, harf: ['Ç', 'Ö', 'P'] },
+  ['trafik polisi', 'traffic officer', 1], ['güvenlik görevlisi', 'security guard', 2],
+  { soz: 'temizlikçi', ceviri: 'cleaner', zorluk: 2, kokler: ['temizlik', 'temiz'] },
+  { soz: 'muhtar', zorluk: 2 },
+  { soz: 'kapıcı', ceviri: 'doorman', zorluk: 2, kokler: ['kapı'] },
+  ['savcı', 'prosecutor', 2], ['noter', 'notary', 3], { soz: 'zabıta', zorluk: 3 },
+
+  // Doğa, hayvan ve bakım
+  ['çoban', 'shepherd', 1],
+  { soz: 'arıcı', ceviri: 'beekeeper', zorluk: 2, harf: ['A', 'R', 'I'] },
+  ['hayvan bakıcısı', 'zookeeper', 2],
+  { soz: 'ormancı', ceviri: 'forester', zorluk: 2, kokler: ['orman'] },
+  ['bebek bakıcısı', 'babysitter', 1], ['dadı', 'nanny', 2],
+  { soz: 'kütüphaneci', ceviri: 'librarian', zorluk: 2, kokler: ['kütüphane'] },
+  { soz: 'tercüman', ceviri: 'interpreter', zorluk: 2, esler: ['çevirmen'] },
+  ['rehber', 'tour guide', 2], ['animatör', 'entertainer', 2], ['vale', 'valet', 3],
+]);

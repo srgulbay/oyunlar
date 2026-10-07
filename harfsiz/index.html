@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Harfsiz</title>
+    <meta name="description" content="Bir harfi yasakla, anlat. Gizli sözcüğü yasak harfi hiç kullanmadan en çok 8 kelimeyle anlat; arkadaşın 3 hakta bilsin." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fbf7f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121722" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Harfsiz" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Harfsiz" />
+    <meta property="og:title" content="Harfsiz · Yasak harfle anlattım, 3 hakta bil" />
+    <meta property="og:description" content="Kurulum yok, hesap yok. Tarayıcıda hemen tahmin et, sonra sen anlat." />
+    <meta property="og:url" content="https://srgulbay.github.io/oyunlar/harfsiz/" />
+    <meta property="og:image" content="https://srgulbay.github.io/oyunlar/harfsiz/assets/og-harfsiz.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Harfsiz: üstü çizili bir harf ve &quot;3 hakta bil&quot; yazısı." />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Harfsiz · Yasak harfle anlattım, 3 hakta bil" />
+    <meta name="twitter:description" content="Kurulum yok, hesap yok. Tarayıcıda hemen tahmin et, sonra sen anlat." />
+    <meta name="twitter:image" content="https://srgulbay.github.io/oyunlar/harfsiz/assets/og-harfsiz.png" />
+    <meta name="twitter:image:alt" content="Harfsiz: üstü çizili bir harf ve &quot;3 hakta bil&quot; yazısı." />
+    <link rel="stylesheet" href="styles/app.css" />
+    <link rel="stylesheet" href="styles/ekranlar.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+    <div id="toast" aria-hidden="true" hidden></div>
+    <noscript><p class="noscript">Harfsiz'i oynamak için JavaScript gerekir. · Letterless needs JavaScript to run.</p></noscript>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # Oyunlar sitesi
 
-Hedef, Mikrop, İz, Ek, Terazi, Taç, Kat, Söz, Koloni, Terim ve Doz oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
+Hedef, Mikrop, İz, Ek, Terazi, Taç, Kat, Söz, Koloni, Terim, Doz ve Harfsiz oyunlarının herkese açık gizlilik politikası, destek ve kullanım koşulları sayfaları. GitHub Pages'te `https://srgulbay.github.io/oyunlar/` adresinde yayımlanır. App Store Connect'teki Gizlilik Politikası URL'si ve Destek URL'si bu sayfaları gösterir (Kılavuz 5.1.1(i) ve 1.5).
 
 Site düz HTML ve tek bir CSS dosyasıdır. Derleme adımı, betik, yazı tipi ya da başka bir harici kaynak yoktur.
 
@@ -16,7 +16,9 @@ site.css                   ortak biçem (kağıt zemin, mürekkep lacivert; aç�
 araclar/denetle.py         denetim betiği
 ```
 
-`<oyun>`: `hedef`, `mikrop`, `iz`, `ek`, `terazi`, `tac`, `kat`, `soz`, `koloni`, `terim`, `doz`.
+`<oyun>`: `hedef`, `mikrop`, `iz`, `ek`, `terazi`, `tac`, `kat`, `soz`, `koloni`, `terim`, `doz`, `harfsiz`.
+
+Harfsiz tarayıcıda da oynanır: `harfsiz/` (Türkçe) ve `letterless/` (İngilizce) klasörleri gizlilik, destek ve koşullar sayfalarının yanında oyunun kendisini taşır (giriş sayfası, `src/`, `styles/`, `assets/`, `sw.js`, `manifest.webmanifest`). Bu dosyaları Harfsiz deposundaki `scripts/site-yayinla.sh` yazar; elle düzenlenmez. `araclar/denetle.py` onları sayfa saymaz (`UYGULAMA_KOKLERI`). Harfsiz'in paylaşım bağlantıları `https://srgulbay.github.io/oyunlar/harfsiz/` ve `…/letterless/` adreslerini kullanır; oyun kalıcı bir alan adına taşınınca bu iki yolda eski bağlantıları yeni adrese ileten bir yönlendirme sayfası kalır.
 
 Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile `KOSULLAR_ADRESI` değerlerine bunlar girilir:
 
@@ -33,6 +35,7 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 | Koloni | https://srgulbay.github.io/oyunlar/koloni/gizlilik/ | https://srgulbay.github.io/oyunlar/koloni/destek/ | https://srgulbay.github.io/oyunlar/koloni/kosullar/ |
 | Terim | https://srgulbay.github.io/oyunlar/terim/gizlilik/ | https://srgulbay.github.io/oyunlar/terim/destek/ | https://srgulbay.github.io/oyunlar/terim/kosullar/ |
 | Doz | https://srgulbay.github.io/oyunlar/doz/gizlilik/ | https://srgulbay.github.io/oyunlar/doz/destek/ | https://srgulbay.github.io/oyunlar/doz/kosullar/ |
+| Harfsiz | https://srgulbay.github.io/oyunlar/harfsiz/gizlilik/ | https://srgulbay.github.io/oyunlar/harfsiz/destek/ | https://srgulbay.github.io/oyunlar/harfsiz/kosullar/ |
 
 İngilizce metin aynı sayfadadır; adresin sonuna `#en` eklenir. Oyunlar İngilizce bölümde (sayfa başlığı ve açıklaması, kök sayfanın İngilizce listesi, ortak hesap listeleri dahil) İngilizce adlarıyla anılır; adresler ve klasörler Türkçe kalır:
 
@@ -49,6 +52,7 @@ Adresler değişmez; App Store Connect'e ve uygulamaların `GIZLILIK_ADRESI` ile
 | Koloni | Colony |
 | Terim | Terms |
 | Doz | Dose |
+| Harfsiz | Letterless |
 
 İngilizce bölümde Türkçe ad yalnız bilerek ve "called Hedef in Turkish" ya da "its Turkish name, Hedef" kalıbıyla geçer (Hedef, İz, Ek, Terazi ve Söz'ün sayfalarında, mağaza taslaklarındaki gibi). Türkçe bölüm her zaman Türkçe adları kullanır. `araclar/denetle.py` bunu `INGILIZCE_AD` ve `TURKCE_AD` ile denetler.
 

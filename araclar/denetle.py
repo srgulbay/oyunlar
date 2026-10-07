@@ -25,16 +25,18 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi", "tac", "kat", "soz", "koloni", "terim", "doz"]
+OYUNLAR = ["hedef", "mikrop", "iz", "ek", "terazi", "tac", "kat", "soz", "koloni", "terim", "doz", "harfsiz"]
 SAYFALAR = ["gizlilik", "destek", "kosullar"]
 # İngilizce bölümde kendi adıyla anılan oyunlar. Mikrop yalnız Türkçedir; İngilizcede de Mikrop adını kullanır.
 INGILIZCE_AD = {
     "hedef": "Target", "iz": "Trace", "ek": "Suffix", "terazi": "Scales",
     "tac": "Crown", "kat": "Fold", "soz": "Proverb", "koloni": "Colony", "terim": "Terms", "doz": "Dose",
+    "harfsiz": "Letterless",
 }
 TURKCE_AD = {
     "hedef": "Hedef", "iz": "İz", "ek": "Ek", "terazi": "Terazi",
     "tac": "Taç", "kat": "Kat", "soz": "Söz", "koloni": "Koloni", "terim": "Terim", "doz": "Doz",
+    "harfsiz": "Harfsiz",
 }
 # İngilizce bölümde Türkçe ad yalnız bu kalıplarla, bilerek anılır ("called Hedef in Turkish").
 TURKCE_AD_IZINLI = re.compile(r"called \w+ in Turkish|its Turkish name, \w+")
@@ -52,6 +54,16 @@ TARIH_EN = re.compile(r"Last updated: (" + "|".join(AYLAR_EN) + r") (\d{1,2}), (
 BOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 DILLER = {"tr", "en"}
 E_POSTA = "srgulbay@gmail.com"
+# Tarayıcıda oynanan oyunun kendisi (giriş HTML'i, betikler, biçemler) sitenin sayfası değildir ve denetlenmez.
+# Harfsiz iki yolda yayımlanır; dosyalarını Harfsiz deposundaki scripts/site-yayinla.sh yazar. Oyunun kendi
+# site sayfaları (SAYFALAR) denetlenir.
+UYGULAMA_KOKLERI = ["harfsiz", "letterless"]
+
+
+def uygulama_dosyasi(yol):
+    """Yol bir oyunun uygulama dosyası mı (UYGULAMA_KOKLERI altında, SAYFALAR dışında)."""
+    parcalar = os.path.relpath(yol, KOK).split(os.sep)
+    return len(parcalar) > 1 and parcalar[0] in UYGULAMA_KOKLERI and parcalar[1] not in SAYFALAR
 
 sorunlar = []
 
@@ -122,7 +134,7 @@ def html_dosyalari():
     for kok, klasorler, dosyalar in os.walk(KOK):
         klasorler[:] = [k for k in klasorler if not k.startswith(".") and k != "tmp"]
         for ad in dosyalar:
-            if ad.endswith(".html"):
+            if ad.endswith(".html") and not uygulama_dosyasi(os.path.join(kok, ad)):
                 yield os.path.join(kok, ad)
 
 
@@ -239,7 +251,7 @@ def main():
     for kok, klasorler, dosyalar in os.walk(KOK):
         klasorler[:] = [k for k in klasorler if not k.startswith(".") and k != "tmp"]
         for ad in dosyalar:
-            if ad.endswith(".css"):
+            if ad.endswith(".css") and not uygulama_dosyasi(os.path.join(kok, ad)):
                 yol = os.path.join(kok, ad)
                 with open(yol, encoding="utf-8") as f:
                     css = f.read()
