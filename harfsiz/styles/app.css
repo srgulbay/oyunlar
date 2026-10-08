@@ -726,7 +726,14 @@ a {
   line-height: 1.7;
   white-space: pre-wrap;
 }
+/* İşaretli sözcük tek parçadır (satır içi blok): ⚠ satır sonunda sözcükten ayrılmaz, sığmayan sözcük ⚠'iyle
+   birlikte alt satıra iner. `white-space: nowrap` bunu yapardı ama satırdan uzun tek sözcüğü (eklemeli Türkçe,
+   en büyük yazıda 12–15 harf yeter) kutudan taşırırdı; satır içi blok en çok satır genişliğindedir ve öyle bir
+   sözcük kendi içinde kırılır. `line-height: normal` zemini satır içi kutunun yüksekliğinde tutar. */
 .flagged {
+  display: inline-block;
+  max-width: 100%;
+  line-height: normal;
   background: var(--banned-bg);
   color: var(--banned);
   border-radius: 6px;
@@ -734,8 +741,6 @@ a {
   text-decoration: underline wavy var(--banned);
   text-decoration-thickness: 2px;
   text-underline-offset: 5px;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
 }
 .flag-icon {
   font-family: var(--font-ui);
@@ -743,6 +748,10 @@ a {
   margin-inline-start: 2px;
   text-decoration: none;
   display: inline-block;
+}
+/* Uyarı satırındaki uzun sözcük («…») de kutusunda kırılır; esnek öğe en uzun sözcüğünden dar olamıyordu. */
+.issue {
+  overflow-wrap: anywhere;
 }
 
 /* ---------- Skor ve durum etiketleri ---------- */

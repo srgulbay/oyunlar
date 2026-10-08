@@ -1,5 +1,7 @@
 // Mağaza, deste sayfası ve Destekle metinleri (TR/EN). Fiyat hiçbir zaman burada yazılmaz (StoreKit
-// displayPrice). Ürün adları docs/magaza-taslak.md §5 ile uyumludur.
+// displayPrice). Ürün adları docs/magaza-taslak.md §5 ile uyumludur. Hepsi kartı yalnız bu sürümde olanı
+// sayar: Emoji kipi (haklar.js'te Hepsi'ye dahil, 1.0'da yok) çıktığı sürümde madde olarak eklenir
+// (App Store Kılavuzu 2.3.1).
 
 /** "Kitchen (Turkish)" → "Kitchen deck (Turkish)". */
 const enDeck = (name) => {
@@ -15,8 +17,7 @@ export const STORE = {
     allTitle: 'Tek seferde hepsi',
     allProduct: (name) => `${name} Hepsi`,
     allBullet1: 'Bugünkü ve gelecekteki bütün desteler',
-    allBullet2: 'Emoji kipi geldiğinde o da',
-    allBullet3: 'Günün sözcüğü arşivi: geçmiş günlerin sözcükleriyle anlat',
+    allBullet2: 'Günün sözcüğü arşivi: geçmiş günlerin sözcükleriyle anlat',
     allNote: 'Kart temaları ayrıdır.',
     allHint: 'Bütün desteler, gelecekte eklenecekler de, Hepsi paketinde.',
     decksTitle: 'Desteler',
@@ -68,8 +69,7 @@ export const STORE = {
     allTitle: 'Everything at once',
     allProduct: (name) => `${name} All`,
     allBullet1: "Every deck, today's and future ones",
-    allBullet2: 'Emoji mode, when it arrives',
-    allBullet3: "Word of the day archive: write with past days' words",
+    allBullet2: "Word of the day archive: write with past days' words",
     allNote: 'Card themes are separate.',
     allHint: 'Every deck, including future ones, comes with All.',
     decksTitle: 'Decks',

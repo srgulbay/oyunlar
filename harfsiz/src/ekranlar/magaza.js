@@ -1,5 +1,5 @@
 // Mağaza (Ayarlar → Mağaza; yalnız iOS, StoreKit köprüsüyle): Harfsiz Hepsi, desteler, Kart temaları,
-// geri yükle, iade iste; Destekle'ye bağlantı. Her ürün kartında ne verdiği (3 madde), displayPrice,
+// geri yükle, iade iste; Destekle'ye bağlantı. Her ürün kartında ne verdiği (madde listesi), displayPrice,
 // "Aile Paylaşımı ile paylaşılır" ve görünür "Satın alımları geri yükle". Geri sayım, sahte indirim ve ön
 // seçili paket yok (docs/oyun-tasarimi.md §6). Webde bu ekran yoktur.
 
@@ -56,7 +56,7 @@ export function render(app) {
   function draw() {
     const parts = [];
     if (pricesState(prices) === 'unavailable') parts.push(storeUnavailableNote(app, refresh));
-    parts.push(section(t('allTitle'), 'store-all', card(PRODUCT.HEPSI, t('allProduct', app.name()), [t('allBullet1'), t('allBullet2'), t('allBullet3')], h('p', { class: 'product-note' }, t('allNote')))));
+    parts.push(section(t('allTitle'), 'store-all', card(PRODUCT.HEPSI, t('allProduct', app.name()), [t('allBullet1'), t('allBullet2')], h('p', { class: 'product-note' }, t('allNote')))));
     parts.push(
       section(
         t('decksTitle'),

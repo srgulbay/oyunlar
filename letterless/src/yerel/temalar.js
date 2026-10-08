@@ -91,8 +91,8 @@ export const KART_TEMALARI = Object.freeze({
     skor: { aile: YAZI.tebesir, kalinlik: 400, renk: '#C9D3CC' },
     bant: { renk: '#5E4128', ustCizgi: { renk: '#7A5638', kalinlik: 6 },
       desen: { tur: 'tebesirler', parcalar: [
-        { x: 862, dy: 150, en: 96, boy: 20, aci: -4, renk: '#F2F0E6' },
-        { x: 972, dy: 152, en: 64, boy: 20, aci: 3, renk: '#F3D77A' },
+        { x: 862, dy: 66, en: 96, boy: 20, aci: -4, renk: '#F2F0E6' },
+        { x: 972, dy: 68, en: 64, boy: 20, aci: 3, renk: '#F3D77A' },
       ] },
       cta: { aile: YAZI.tebesir, kalinlik: 400, renk: '#F2E6D6' },
       adres: { aile: YAZI.esaralik, kalinlik: 700, renk: '#FFFFFF' } },

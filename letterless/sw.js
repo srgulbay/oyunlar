@@ -17,7 +17,7 @@
 // düzeniyle çalıştırır. Görseller (B, web/assets) süsleyicidir: eksik olan atlanır. iOS'ta (harfsiz://
 // şeması) kaydedilmez.
 
-const VERSION = 'harfsiz-1.0.0-2';
+const VERSION = 'harfsiz-1.0.0-3';
 
 // Uygulama kabuğu: biri eksikse kurulum başarısız olur (yarım önbellek olmaz). Kapsamın index.html'i o
 // kopyanın dil girişidir (sitede /harfsiz/ Türkçe, /letterless/ İngilizce; yerelde kök Türkçe).
@@ -49,7 +49,7 @@ function importsOf(source) {
 const scopeUrl = (path) => new URL(path, self.registration ? self.registration.scope : self.location.href).href;
 const scopePath = () => new URL(scopeUrl('./')).pathname;
 const CACHE_PREFIX = 'harfsiz-';
-/** Önbellek adı: sürüm + kapsam ("harfsiz-1.0.0-2 /oyunlar/harfsiz/"). */
+/** Önbellek adı: sürüm + kapsam ("harfsiz-1.0.0-3 /oyunlar/harfsiz/"). */
 const cacheName = () => `${VERSION} ${scopePath()}`;
 
 /** Modül grafiğini gezip önbelleğe koyar. Dönen: önbelleğe giren adresler. */
